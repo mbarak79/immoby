@@ -1,0 +1,718 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+{% load humanize %}
+
+<style>
+  nav.pagination {
+    margin-left: 44% !important;
+    margin-top: 30px;
+  }
+
+  nav a span:hover {
+    color: gainsboro !important;
+  }
+  .category-overlay{
+    display: none;
+  }
+</style>
+
+<!-- Banner start -->
+<div class="banner banner_video_bg" id="banner">
+  <div class="pattern-overlay">
+    <a id="bgndVideo" class="player"
+      data-property="{videoURL:'https://www.youtube.com/watch?v=5e0LxrLSzok',containment:'.banner_video_bg', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+  </div>
+  <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item banner-max-height active">
+        <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
+          <div class="carousel-content container">
+            <div class="text-center">
+              <h2>Discover a place
+                you'll love to live</h2>
+              <p>
+                Let Our Experience Be Your Guide
+              </p>
+              <a href="{% url 'services' %}" class="btn btn-lg btn-round btn-theme">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Featured properties start -->
+<div class="featured-properties content-area">
+  <div class="container">
+    <!-- Main title -->
+    <div class="main-title mt2">
+      <h1>Featured Properties</h1>
+      <!-- <div class="list-inline-listing">
+        <ul class="filters filteriz-navigation clearfix">
+          <li class="active btn filtr-button filtr" data-filter="all">All</li>
+          <li data-filter="1" class="btn btn-inline filtr-button filtr">Apartment</li>
+          <li data-filter="2" class="btn btn-inline filtr-button filtr">House</li>
+          <li data-filter="3" class="btn btn-inline filtr-button filtr">Office</li>
+        </ul>
+      </div> -->
+    </div>
+    <div class="row filter-portfolio">
+      {% for feature in features %}
+      <div class="cars">
+        <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3">
+          <div class="property-box">
+            <div class="property-thumbnail">
+              <a href="properties-details.html" class="property-img">
+                <div class="listing-badges">
+                  <span class="featured">{{ feature.property_types }}</span>
+                </div>
+                <div class="price-ratings-box">
+                  <p class="price">
+                    €{{ feature.price|intcomma }}
+                  </p>
+                  <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                </div>
+                <div class="listing-time opening">{{ feature.property_status }}</div>
+                <img class="d-block w-100" src="{{ feature.image.url }}" alt="properties">
+              </a>
+            </div>
+            <div class="detail">
+              <h1 class="title">
+                <a href="{{ feature.get_absolute_url }}">{{ feature.title }}</a>
+              </h1>
+              <div class="location">
+                <a href="#">
+                  <i class="fa fa-map-marker"></i>{{ feature.address }}
+                </a>
+              </div>
+              <div class="location">
+                <a href="#">
+                  <i class="fa fa-map-marker"></i>{{ feature.cp }}, {{ feature.city }}
+                </a>
+              </div>
+              <ul class="facilities-list clearfix">
+                <li>
+                  <i class="flaticon-square"></i> {{ feature.sqft }} sq ft
+                </li>
+                <li>
+                  <i class="flaticon-furniture"></i> {{ feature.bedrooms }} Beds
+                </li>
+                <li>
+                  <i class="flaticon-holidays"></i> {{ feature.bathrooms }} Baths
+                </li>
+
+                {% if feature.terrasse %}
+
+                <li>
+                  <i class="flaticon-vehicle"></i>Terrasse
+                </li>
+
+
+                {% endif %}
+                <li>
+                  <i class="flaticon-window"></i> {{ feature.balcony }} Balcony
+                </li>
+                <li>
+                  <i class="flaticon-monitor"></i> TV
+                </li>
+              </ul>
+            </div>
+            <div class="footer clearfix">
+              <div class="pull-left days">
+                <a><i class="fa fa-user"></i> {{ feature.owner }}</a>
+              </div>
+              <div class="pull-right">
+                <a><i class="flaticon-time"></i> {{ feature.created|naturaltime }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+    <!-- Pagination -->
+
+    <center>
+      {% if features.has_other_pages %}
+      <div class="row">
+        <nav class="pagination" aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if features.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ features.previous_page_number }}">
+                <span aria-hidden="true">Prev</span>
+              </a>
+            </li>
+            {% endif %}
+
+            {% for i in features.paginator.page_range %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{i}}">
+                <span aria-hidden="true">{{i}}</span>
+              </a>
+            </li>
+            {% endfor %}
+
+            {% if features.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ features.next_page_number }}">
+                <span aria-hidden="true">Next</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      {% endif %}
+    </center>
+
+  </div>
+</div>
+<!-- Services 3 start -->
+<div class="services-3 content-area-5 bg-grea-3">
+  <div class="container">
+    <!-- Main title -->
+    <div class="main-title">
+      <h1>What are you looking for?</h1>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="service-info-2">
+          <div class="s-info">
+            <i class="flaticon-apartment"></i>
+            <span>Apartments</span>
+          </div>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="service-info-2">
+          <div class="s-info">
+            <i class="flaticon-internet"></i>
+            <span>Houses</span>
+          </div>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="service-info-2">
+          <div class="s-info">
+            <i class="flaticon-vehicle"></i>
+            <span>Garages</span>
+          </div>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="service-info-2">
+          <div class="s-info">
+            <i class="flaticon-coins"></i>
+            <span>Commercial</span>
+          </div>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center read-more-2">
+      <a href="{% url 'services' %}" class="btn-white">Read More</a>
+    </div>
+  </div>
+</div>
+<!-- Recently properties start -->
+<div class="recently-properties content-area-12">
+  <div class="container">
+    <!-- Main title -->
+    <div class="main-title">
+      <h1>Recently Properties</h1>
+    </div>
+    <div class="slick-slider-area">
+      <div class="row slick-carousel"
+        data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+        {% for recent in recently %}
+
+        <div class="slick-slide-item">
+          <div class="property-box-5">
+            <div class="property-photo">
+              <img class="img-fluid" src="{{ recent.image.url }}" alt="properties" />
+              <div class="date-box">{{ recent.property_types }}</div>
+            </div>
+            <div class="detail">
+              <div class="heading">
+                <h3>
+                  <a href="{{ recent.get_absolute_url }}">{{ recent.title }}</a>
+                </h3>
+                <div class="location">
+                  <a href="properties-details.html">
+                    <i class="fa fa-map-marker"></i>
+                    {{ recent.address }}
+                  </a>
+                </div>
+                <div class="location">
+                  <a href="properties-details.html">
+                    <i class="fa fa-map-marker"></i>
+                    {{ recent.cp }}, {{ recent.city }}
+                  </a>
+                </div>
+              </div>
+              <div class="properties-listing">
+                <span>{{ recent.bedrooms }} Beds</span>
+                <span>{{ recent.bathrooms }} Baths</span>
+                <span>{{ recent.sqft }} sqft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="slick-btn">
+        <div class="slick-prev slick-arrow-buton-2"></div>
+        <div class="slick-next slick-arrow-buton-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Categories strat -->
+<div class="categories content-area-8 bg-grea-3">
+  <div class="container">
+    <!-- Main title -->
+    <div class="main-title">
+      <h1>Most Popular Places</h1>
+    </div>
+    <div class="row wow">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-pad">
+            <div class="category">
+              <div class="category_bg_box cat-1-bg">
+                <div class="category-overlay">
+                  <div class="category-content">
+                    <h3 class="category-title">
+                      <a href="#">Florida</a>
+                    </h3>
+                    <div class="category-subtitle">{{ recently.count }} Properties</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 col-pad">
+            <div class="category">
+              <div class="category_bg_box cat-2-bg">
+                <div class="category-overlay">
+                  <div class="category-content">
+                    <h3 class="category-title">
+                      <a href="#">California</a>
+                    </h3>
+                    <div class="category-subtitle">98 Properties</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 col-pad">
+            <div class="category">
+              <div class="category_bg_box cat-6-bg">
+                <div class="category-overlay">
+                  <div class="category-content">
+                    <h3 class="category-title">
+                      <a href="#">Villa</a>
+                    </h3>
+                    <div class="category-subtitle">98 Properties</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-6 col-pad none-992">
+            <div class="category">
+              <div class="category_bg_box cat-3-bg">
+                <div class="category-overlay">
+                  <div class="category-content">
+                    <h3 class="category-title">
+                      <a href="#">Apartment</a>
+                    </h3>
+                    <div class="category-subtitle">98 Properties</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 col-pad">
+            <div class="category">
+              <div class="category_bg_box cat-5-bg">
+                <div class="category-overlay">
+                  <div class="category-content">
+                    <h3 class="category-title">
+                      <a href="#">House</a>
+                    </h3>
+                    <div class="category-subtitle">98 Properties</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Counters strat -->
+<div class="counters-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="counter-box">
+          <div class="icon"><i class="flaticon-tag"></i></div>
+          <h1 class="counter">{{ recently.count }}</h1>
+          <p>Listings For Sale</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="counter-box">
+          <div class="icon">
+            <i class="flaticon-business"></i>
+          </div>
+          <h1 class="counter">1276</h1>
+          <p>Listings For Rent</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="counter-box">
+          <div class="icon">
+            <i class="flaticon-people"></i>
+          </div>
+          <h1 class="counter">396</h1>
+          <p>Agents</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="counter-box">
+          <div class="icon">
+            <i class="flaticon-people-1"></i>
+          </div>
+          <h1 class="counter">177</h1>
+          <p>Brokers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Our team 2 start -->
+<div class="our-team-2 content-area">
+  <div class="container">
+    <!-- Main title -->
+    <div class="main-title">
+      <h1>Our Agent</h1>
+    </div>
+    <div class="slick-slider-area">
+      <div class="row slick-carousel"
+        data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+        <div class="slick-slide-item">
+          <div class="row team-4">
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-pad">
+              <div class="photo">
+                <img src="{% static 'img/avatar/avatar-10.jpg' %}" alt="avatar-10" class="img-fluid" />
+              </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-pad align-self-center">
+              <div class="detail">
+                <h5>Office Manager</h5>
+                <h4>
+                  <a href="agent-detail.html">Karen Paran</a>
+                </h4>
+
+                <div class="contact">
+                  <ul>
+                    <li>
+                      <span>Address:</span><a href="#"> 44 New Design Street,</a>
+                    </li>
+                    <li>
+                      <span>Email:</span><a href="mailto:info@themevessel.com">
+                        info@themevessel.com</a>
+                    </li>
+                    <li>
+                      <span>Mobile:</span><a href="tel:+554XX-634-7071"> +55 4XX-634-7071</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <ul class="social-list clearfix">
+                  <li>
+                    <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slick-slide-item">
+          <div class="row team-4">
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-pad">
+              <div class="photo">
+                <img src="{% static 'img/avatar/avatar-9.jpg' %}" alt="avatar-9" class="img-fluid" />
+              </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-pad align-self-center">
+              <div class="detail">
+                <h5>Creative Director</h5>
+                <h4>
+                  <a href="agent-detail.html">Eliane Pereira</a>
+                </h4>
+
+                <div class="contact">
+                  <ul>
+                    <li>
+                      <span>Address:</span><a href="#"> 44 New Design Street,</a>
+                    </li>
+                    <li>
+                      <span>Email:</span><a href="mailto:info@themevessel.com">
+                        info@themevessel.com</a>
+                    </li>
+                    <li>
+                      <span>Mobile:</span><a href="tel:+554XX-634-7071"> +55 4XX-634-7071</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <ul class="social-list clearfix">
+                  <li>
+                    <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slick-slide-item">
+          <div class="row team-4">
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-pad">
+              <div class="photo">
+                <img src="{% static 'img/avatar/avatar-10.jpg' %}" alt="avatar-10" class="img-fluid" />
+              </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-pad align-self-center">
+              <div class="detail">
+                <h5>Office Manager</h5>
+                <h4>
+                  <a href="agent-detail.html">Karen Paran</a>
+                </h4>
+
+                <div class="contact">
+                  <ul>
+                    <li>
+                      <span>Address:</span><a href="#"> 44 New Design Street,</a>
+                    </li>
+                    <li>
+                      <span>Email:</span><a href="mailto:info@themevessel.com">
+                        info@themevessel.com</a>
+                    </li>
+                    <li>
+                      <span>Mobile:</span><a href="tel:+554XX-634-7071"> +55 4XX-634-7071</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <ul class="social-list clearfix">
+                  <li>
+                    <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slick-slide-item">
+          <div class="row team-4">
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-pad">
+              <div class="photo">
+                <img src="{% static 'img/avatar/avatar-9.jpg' %}" alt="avatar-9" class="img-fluid" />
+              </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-pad align-self-center">
+              <div class="detail">
+                <h5>Creative Director</h5>
+                <h4>
+                  <a href="agent-detail.html">Eliane Pereira</a>
+                </h4>
+
+                <div class="contact">
+                  <ul>
+                    <li>
+                      <span>Address:</span><a href="#"> 44 New Design Street,</a>
+                    </li>
+                    <li>
+                      <span>Email:</span><a href="mailto:info@themevessel.com">
+                        info@themevessel.com</a>
+                    </li>
+                    <li>
+                      <span>Mobile:</span><a href="tel:+554XX-634-7071"> +55 4XX-634-7071</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <ul class="social-list clearfix">
+                  <li>
+                    <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slick-prev slick-arrow-buton">
+        <i class="fa fa-angle-left"></i>
+      </div>
+      <div class="slick-next slick-arrow-buton">
+        <i class="fa fa-angle-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Testimonial 2 start -->
+<div class="testimonial-2 t2">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="testimonial-inner">
+          <header class="testimonia-header">
+            <h1>Our Testimonial</h1>
+          </header>
+          <div id="carouselExampleIndicators4" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators4" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators4" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators4" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <p class="lead">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Maecenas in pulvinar neque. Nulla finibus lobortis
+                  pulvinar. Donec a consectetur nulla. Nulla posuere sapien
+                  vitae.
+                </p>
+                <div class="media mb-4">
+                  <a class="pr-3" href="#">
+                    <img src="{% static 'img/avatar/avatar-1.jpg' %}" alt="use" class="img-fluid" />
+                  </a>
+                  <div class="media-body align-self-center">
+                    <h5>
+                      <a href="#">Anne Brady</a>
+                    </h5>
+                    <h6>Creative Director</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <p class="lead">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Maecenas in pulvinar neque. Nulla finibus lobortis
+                  pulvinar. Donec a consectetur nulla. Nulla posuere sapien
+                  vitae.
+                </p>
+                <div class="media mb-4">
+                  <a class="pr-3" href="#">
+                    <img src="{% static 'img/avatar/avatar-2.jpg' %}" alt="use" class="img-fluid" />
+                  </a>
+                  <div class="media-body align-self-center">
+                    <h5>
+                      <a href="#">Eliane Perei</a>
+                    </h5>
+                    <h6>Web Developer</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <p class="lead">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Maecenas in pulvinar neque. Nulla finibus lobortis
+                  pulvinar. Donec a consectetur nulla. Nulla posuere sapien
+                  vitae.
+                </p>
+                <div class="media mb-4">
+                  <a class="pr-3" href="#">
+                    <img src="{% static 'img/avatar/avatar-3.jpg' %}" alt="use" class="img-fluid" />
+                  </a>
+                  <div class="media-body align-self-center">
+                    <h5>
+                      <a href="#">Maria Blank</a>
+                    </h5>
+                    <h6>Office Manager</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,274 @@
+
+{% include "header2.html" %}
+{% load static %}
+{% load humanize %}
+
+
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container">
+        <div class="page-name">
+            <h1>{{ prop_details.title }}</h1>
+            <ul>
+                <li><a href="{% url 'index' %}">Index</a></li>
+                <li><span>/</span>Properties Detail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Properties Details page start -->
+<div class="properties-details-page content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div id="propertiesDetailsSlider" class="carousel properties-details-sliders slide mb-40">
+                    <!-- main slider carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item carousel-item" data-slide-number="0">
+                            <img src="{{ prop_details.image.url }}" class="img-fluid" alt="slider-properties">
+                        </div>
+                        <div class="item carousel-item" data-slide-number="1">
+                            <img src="{{ prop_details.image1.url }}" class="img-fluid" alt="slider-properties">
+                        </div>
+                        <div class="item carousel-item" data-slide-number="2">
+                            <img src="{{ prop_details.image2.url }}" class="img-fluid" alt="slider-properties">
+                        </div>
+                        <div class="item carousel-item" data-slide-number="4">
+                            <img src="{{ prop_details.image3.url }}" class="img-fluid" alt="slider-properties">
+                        </div>
+                        <div class="item carousel-item" data-slide-number="5">
+                            <img src="{{ prop_details.image4.url }}" class="img-fluid" alt="slider-properties">
+                        </div>
+                    </div>
+                    <!-- main slider carousel nav controls -->
+                    <ul class="carousel-indicators smail-properties list-inline nav nav-justified">
+                        <li class="list-inline-item active">
+                            <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#propertiesDetailsSlider">
+                                <img src="{{ prop_details.image.url }}" class="img-fluid" alt="properties-small">
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a id="carousel-selector-1" data-slide-to="1" data-target="#propertiesDetailsSlider">
+                                <img src="{{ prop_details.image1.url }}" class="img-fluid" alt="properties-small">
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a id="carousel-selector-2" data-slide-to="2" data-target="#propertiesDetailsSlider">
+                                <img src="{{ prop_details.image2.url }}" class="img-fluid" alt="properties-small">
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a id="carousel-selector-3" data-slide-to="3" data-target="#propertiesDetailsSlider">
+                                <img src="{{ prop_details.image3.url }}" class="img-fluid" alt="properties-small">
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a id="carousel-selector-4" data-slide-to="4" data-target="#propertiesDetailsSlider">
+                                <img src="{{ prop_details.image4.url }}" class="img-fluid" alt="properties-small">
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Heading properties start -->
+                    <div class="heading-properties">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-left">
+                                    <h3>{{ prop_details.title }}</h3>
+                                    <p><i class="fa fa-map-marker"></i> {{ prop_details.address }} {{ prop_details.cp }}, {{ prop_details.city }} </p>
+                                </div>
+                                <div class="pull-right">
+                                    <h3><span class="text-right">€{{ prop_details.price|intcomma }}</span></h3>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Advanced search start -->
+                <div class="widget-2 sidebar advanced-search-2">
+                    <h3 class="sidebar-title">Advanced Search</h3>
+                    <div class="s-border"></div>
+                    <div class="m-border"></div>
+                    <form method="get"
+                        {{ myFilter }}
+                    ></form>
+                </div>
+                <!-- Properties description start -->
+                <div class="properties-description mb-40">
+                    <h3 class="heading-2">
+                        Description
+                    </h3>
+                    <p>{{ prop_details.description }}</p>
+                </div>
+                <!-- Properties condition start -->
+                <div class="properties-condition mb-40">
+                    <h3 class="heading-2">
+                        Condition
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <ul class="condition">
+                                <li>
+                                    <i class="flaticon-furniture"></i>{{ prop_details.bedrooms }} Bedroom
+                                </li>
+                                <li>
+                                    <i class="flaticon-holidays"></i>{{ prop_details.bathrooms }} Bathroom
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <ul class="condition">
+                                <li>
+                                    <i class="flaticon-square"></i>{{ prop_details.sqft }} sq ft
+                                </li>
+                                <li>
+                                    <i class="flaticon-monitor"></i>TV Lounge
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <ul class="condition">
+                                <li>
+                                    <i class="flaticon-vehicle"></i>1 Garage
+                                </li>
+                                <li>
+                                    <i class="flaticon-window"></i>{{ prop_details.balcony }} Balcony
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Properties amenities start -->
+                <div class="properties-amenities mb-40">
+                    <h3 class="heading-2">
+                        Features
+                    </h3>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <ul class="amenities">
+                                <li>
+                                    <i class="flaticon-technology"></i>Air conditioning
+                                </li>
+                                <li>
+                                    <i class="flaticon-window"></i>Balcony
+                                </li>
+                                <li>
+                                    <i class="flaticon-beach"></i>Pool
+                                </li>
+                                <li>
+                                    <i class="flaticon-holidays-1"></i>Room service
+                                </li>
+                                <li>
+                                    <i class="flaticon-people-2"></i>Gym
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <ul class="amenities">
+                                <li>
+                                    <i class="flaticon-connection"></i>Wifi
+                                </li>
+                                <li>
+                                    <i class="flaticon-vehicle"></i>Parking
+                                </li>
+                                <li>
+                                    <i class="flaticon-furniture"></i>Double Bed
+                                </li>
+                                <li>
+                                    <i class="flaticon-comedy"></i>Home Theater
+                                </li>
+                                <li>
+                                    <i class="flaticon-technology-3"></i>Electric
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <ul class="amenities">
+                                <li>
+                                    <i class="flaticon-technology-1"></i>Telephone
+                                </li>
+                                <li>
+                                    <i class="flaticon-people-3"></i>Jacuzzi
+                                </li>
+                                <li>
+                                    <i class="flaticon-clock"></i>Alarm
+                                </li>
+                                <li>
+                                    <i class="flaticon-vehicle"></i>Garage
+                                </li>
+                                <li>
+                                    <i class="flaticon-lock"></i>Security
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Inside properties start -->
+                <div class="inside-properties mb-50">
+                    <h3 class="heading-2">
+                        Property Video
+                    </h3>
+                    <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Posts by category start -->
+                    <div class="posts-by-category widget">
+                        <h3 class="sidebar-title">Category</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <ul class="list-unstyled list-cat">
+                            
+                            {% for prop in cat_type %}
+
+                            <li><a href="#">{{ prop }} <span>{{ prop.title_count }}</span> </a></li>
+                            <!-- <li><a href="#">House <span>(23)</span></a></li>
+                            <li><a href="#">Commercial <span>(19)</span></a></li>
+                            <li><a href="#">Other <span>(22) </span></a></li> -->
+                                                            
+                            {% endfor %}        
+                        </ul>
+                    </div>
+                    <!-- Social media box start -->
+                    <div class="social-media-box widget clearfix">
+                        <h3 class="sidebar-title">Social Media</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <ul class="social-list">
+                            <li>
+                                <a href="#" class="facebook-bg">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="twitter-bg">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="google-bg">
+                                    <i class="fa fa-google"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="linkedin-bg">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="pinterest-bg">
+                                    <i class="fa fa-pinterest"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include "footer.html" %}

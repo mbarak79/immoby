@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <!-- Google Tag Manager -->
+    
+    <!-- End Google Tag Manager -->
+    <title>Fly'Bnbj - Real Estate HTML5 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+
+    <!-- External CSS libraries -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/animate.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap-submenu.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap-select.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/leaflet.css' %}"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="{% static 'css/map.css' %}" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'fonts/flaticon/font/flaticon.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'fonts/linearicons/style.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/jquery.mCustomScrollbar.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/dropzone.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/slick.css' %}"
+    />
+
+    <!-- Custom stylesheet -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      id="style_sheet"
+      href="{% static 'css/skins/default.css' %}"
+    />
+
+    <!-- Favicon icon -->
+    <link
+      rel="shortcut icon"
+      href="{% static 'img/favicon.ico' %}"
+      type="image/x-icon"
+    />
+
+    <!-- Google fonts -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CRoboto:300,400,500,700&amp;display=swap"
+    />
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/ie10-viewport-bug-workaround.css' %}"
+    />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9
+      ]><script src="js/ie8-responsive-file-warning.js"></script
+    ><![endif]-->
+    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PZRN6LB"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="page_loader"></div>
+
+    <!-- Main header start -->
+    <header class="main-header mh-3 header-transparent">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand logos" href="{% url 'index' %}">
+            <img
+              src="{% static 'img/logos/logo-2.png' %}"
+              alt="logo"
+              class="logo-none-2"
+            />
+            <img
+              src="{% static 'img/logos/logo.png' %}"
+              alt="logo"
+              class="logo-none"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a href="{% url 'index' %}" class="nav-link link-color">
+                  Index</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'propreties' %}" class="nav-link link-color">
+                  Propreties</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a href="{% url 'services' %}" class="nav-link link-color">
+                  Services</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a href="{% url 'contact' %}" class="nav-link link-color">
+                  Contact</a
+                >
+              </li>
+              {% if user.is_authenticated %}
+
+              <li class="nav-item">
+                <a href="#" class="nav-link link-color"
+                  > Welocome {{ user }}</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link link-color"
+                  > Log Out</a
+                >
+              </li>
+              {% else %}
+
+              <li class="nav-item">
+                <a href="{% url 'login' %}" class="nav-link link-color"
+                  > Log In</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'signup' %}" class="nav-link link-color"
+                  > Register</a
+                >
+              </li>
+                              
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    
+{% block content %}
+        
+{% endblock %}
+
+{% include "footer.html" %}

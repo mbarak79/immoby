@@ -1,0 +1,144 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load bootstrap4 %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<!-- Mirrored from theme-vessel-templates.theme-vessel.ey.r.appspot.com/housy/properties-grid-fullwidth.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 25 Nov 2020 21:34:25 GMT -->
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '../../www.googletagmanager.com/gtm5445.html?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PZRN6LB');</script>
+    <!-- End Google Tag Manager -->
+    <title>Housy - Real Estate HTML5 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-submenu.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-select.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/map.css' %}" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/flaticon/font/flaticon.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/linearicons/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mCustomScrollbar.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dropzone.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}" />
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="{% static 'css/skins/default.css' %}" />
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
+
+    <!-- Google fonts -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CRoboto:300,400,500,700&amp;display=swap" />
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ie10-viewport-bug-workaround.css' %}" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9
+      ]><script src="js/ie8-responsive-file-warning.js"></script
+    ><![endif]-->
+    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZRN6LB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="page_loader"></div>
+
+    <!-- Top header start -->
+    <header class="top-header top-header-bg none-992" id="top-header-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-7">
+                    <div class="list-inline">
+                        <a href="tel:1-8X0-666-8X88"><i class="fa fa-phone"></i>Need Support? +33-6-35-60-65-12</a>
+                        <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@flybnb.com</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-5">
+                    <ul class="top-social-media pull-right">
+                        
+                        {% if not user.is_authenticated %}
+                            
+                        <li>
+                            <a href="{% url 'login' %}" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'signup' %}" class="sign-in"><i class="fa fa-user"></i> Register</a>
+                        </li>
+                                                    
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main header start -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand logos" href="{% url 'index' %}">
+                    <img src="{% static 'img/logos/logo.png' %}" alt="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav header-ml">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link " href="{% url 'index' %}" id="navbarDropdownMenuLink">
+                                Index
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link " href="{% url 'propreties' %}" id="navbarDropdownMenuLink">
+                                Propreties
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link " href="{% url 'services' %}" id="navbarDropdownMenuLink">
+                                Services
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link " href="{% url 'contact' %}" id="navbarDropdownMenuLink">
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="submit-property.html" class="nav-link link-btn">Submit Property</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>

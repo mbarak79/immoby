@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+  
+    <!-- Banner start -->
+    <div class="banner" id="banner">
+      <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item banner-max-height active">
+            <img
+              class="d-block w-100"
+              src="{% static 'img/properties/properties-6.jpg' %}"
+              alt="banner"
+            />
+            <div
+              class="carousel-caption banner-slider-inner d-flex h-100 text-center"
+            >
+              <div class="carousel-content container">
+                <div class="text-center">
+                  <h3 class="text-uppercase">Find Your Dream House</h3>
+                  <p class="none-mb-992-0">
+                    We’ll help you find a place you’ll love.
+                  </p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Search Section start -->
+    <div class="search-section search-area-2 bg-grea sa2">
+      <div class="container">
+        <div class="search-section-area">
+          <div class="search-area-inner">
+            <div class="search-contents">
+              <form action="{% url 'search' %}" method="get">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <select class="selectpicker search-fields" name="area">
+                        <option>Area From</option>
+                        <option>3000</option>
+                        <option>2600</option>
+                        <option>2200</option>
+                        <option>1800</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <select
+                        class="selectpicker search-fields"
+                        name="property-status"
+                      >
+                        <option>Property Status</option>
+                        {% for key, value in property_status.items  %}
+                            <option value="{{ key }}">{{ value }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <select
+                        class="selectpicker search-fields"
+                        name="property-types"
+                      >
+                        <option>Property Types</option>
+                        {% for key, value in property_types.items  %}
+                        <option value="{{ key }}">{{ value }}</option>
+                      {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <select
+                        class="selectpicker search-fields"
+                        name="location"
+                      >
+                        <option>Location</option>
+                        {% for key, value in location.items  %}
+                            <option value="{{ key }}">{{ value }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <select
+                        class="selectpicker search-fields"
+                        name="max-area"
+                      >
+                        <option>Bedrooms</option>
+                        {% for key, value in bedrooms.items %}
+                            <option value="{{ key }}">{{ value }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <select
+                        class="selectpicker search-fields"
+                        name="min-area"
+                      >
+                        <option>Bathrooms</option>
+                        {% for key, value in bathrooms.items  %}
+                            <option value="{{ key }}">{{ value }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="range-slider">
+                      <div
+                        data-min="0"
+                        data-max="150000"
+                        data-unit="USD"
+                        data-min-name="min_price"
+                        data-max-name="max_price"
+                        class="range-slider-ui ui-slider"
+                        aria-disabled="false"
+                      ></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                      <button class="search-button">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Featured properties start -->
+    <div class="featured-properties content-area-12">
+      <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+          <h1>Featured Properties</h1>
+        </div>
+        <div class="slick-slider-area">
+          <div
+            class="row slick-carousel"
+            data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'
+          >
+          
+          {% if querysets %}
+          {% for queryset in querysets  %}
+            <div class="slick-slide-item">      
+              <div class="property-box-3">
+                <div class="property-thumbnail">
+                  <a href="properties-details.html" class="property-img">
+                    <div class="tag">Featured</div>
+                    <img
+                      class="d-block w-100"
+                      src="{{ queryset.image.url }}"
+                      alt="properties"
+                    />
+                  </a>
+                </div>
+                <div class="details">
+                  <div class="top">
+                    <h1 class="title">
+                      <a href="properties-details.html">{{ queryset.title }}</a>
+                    </h1>
+                    <div class="location">
+                      <a href="properties-details.html" tabindex="0">
+                        <i class="fa fa-map-marker"></i>{{ queryset.address }}, {{ queryset.city }}
+                      </a>
+                    </div>
+                  </div>
+                  <ul class="facilities-list clearfix">
+                    <li>
+                      <i class="flaticon-square"></i>
+                      <p>Sq Ft:{{ queryset.sqft }}</p>
+                    </li>
+                    <li>
+                      <i class="flaticon-furniture"></i>
+                      <p>{{ queryset.bedrooms }} Beds</p>
+                    </li>
+                    <li>
+                      <i class="flaticon-holidays"></i>
+                      <p>{{ queryset.bathrooms }} Bath</p>
+                    </li>
+                  </ul>
+                  <div class="footer clearfix">
+                    <div class="pull-left days">
+                      <p><i class="flaticon-time"></i> {{ queryset.created }}</p>
+                    </div>
+                    <ul class="pull-right">
+                      <li>
+                        <a href="#" tabindex="0"
+                          ><i class="flaticon-favorite"></i
+                        ></a>
+                      </li>
+                      <li>
+                        <a href="#" tabindex="0"
+                          ><i class="flaticon-multimedia"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>  
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="slick-slider-area">No Listings For The Moment..</div>
+            {% endif %}
+              
+          </div>
+          <div class="slick-btn">
+            <div class="slick-prev slick-arrow-buton-2"></div>
+            <div class="slick-next slick-arrow-buton-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+    {% endblock %}

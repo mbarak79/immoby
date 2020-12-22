@@ -1,0 +1,131 @@
+
+
+{% include "header2.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% load humanize %}
+
+    <!-- Sub banner start -->
+    <div class="banner" id="banner">
+        <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item banner-max-height active">
+                    <img class="d-block w-100" src="{% static 'img/banner/banner-2.jpg' %}" alt="banner">
+                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
+                        <div class="carousel-content container">
+                            <div class="text-center">
+                                <h3 class="text-uppercase">Find Your Dream House</h3>
+                                <p class="none-mb-992-0">
+                                    This is real estate website template based on Bootstrap 4 framework.
+                                </p>
+
+                                <form role="form" class="form-inline" method="get">
+                                    
+                                        {% bootstrap_form myFilter.form layout='inline' %}
+                                        {% buttons submit='Search' layout='inline' %}{% endbuttons %}
+                                
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Properties section body start -->
+    <div class="properties-section-body content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+
+                    <!-- grid properties start -->
+                    <div class="row property-section">
+                        
+                        {% if propreties %}
+                            
+                        {% for proprety in propreties %}
+
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="property-box">
+                                <div class="property-thumbnail">
+                                    <a href="#" class="property-img">
+                                        <div class="listing-badges">
+                                            <span class="featured">{{ proprety.property_status }}</span>
+                                        </div>
+                                        <div class="price-ratings-box">
+                                            <p class="price">
+                                                ${{ proprety.price }}
+                                            </p>
+                                            <div class="ratings">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                        <div class="listing-time opening">{{ proprety.property_types }}</div>
+                                        <img class="d-block w-100" src="{{ proprety.image.url }}" alt="properties">
+                                    </a>
+                                </div>
+                                <div class="detail">
+                                    <h1 class="title">
+                                        <a href="{{ proprety.get_absolute_url }}">{{ proprety.title }}</a>
+                                    </h1>
+                                    <div class="location">
+                                        <a href="{{ proprety.get_absolute_url }}">
+                                            <i class="fa fa-map-marker"></i>{{ proprety.address }}
+                                        </a>
+                                    </div>
+                                    <div class="location">
+                                        <a href="{{ proprety.get_absolute_url }}">
+                                            <i class="fa fa-map-marker"></i>{{ proprety.cp }}, {{ proprety.city }}
+                                        </a>
+                                    </div>
+                                    <ul class="facilities-list clearfix">
+                                        <li>
+                                            <i class="flaticon-square"></i> {{ proprety.sqft }} sq ft
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-furniture"></i> {{ proprety.bedrooms }} Beds
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-holidays"></i> {{ proprety.bathrooms }} Baths
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-vehicle"></i> {{ proprety.garage }} Garage
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-window"></i> {{ proprety.balcony }} Balcony
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-monitor"></i> TV
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="footer clearfix">
+                                    <div class="pull-left days">
+                                        <a><i class="fa fa-user"></i> {{ proprety.owner }}</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a><i class="flaticon-time"></i> {{ proprety.created |naturaltime }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                        {% else %}
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <h4>Sorry.. No Listings Matching Your Search</h4> 
+                        </div>        
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% include "footer.html" %}
